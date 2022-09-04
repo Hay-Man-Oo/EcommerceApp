@@ -4,6 +4,8 @@ import { firebase } from '../config'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { CommonActions } from '@react-navigation/native'
 import * as Animatable from 'react-native-animatable';
+import { BackHandler } from 'react-native';
+
 export default function AccountScreen({ route, navigation }, props) {
     const firestore = firebase.firestore;
     const auth = firebase.auth;
@@ -45,6 +47,18 @@ export default function AccountScreen({ route, navigation }, props) {
             })
         )
     }
+
+    function handleBackButtonClick() {
+        navigation.goBack();
+        return true;
+      }
+    
+      useEffect(() => {
+        BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
+        return () => {
+          BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
+        };
+      }, []);
 
     return (
         <View style={styles.container}>

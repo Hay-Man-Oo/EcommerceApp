@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, View, Text, FlatList, Image, TouchableOpacity, SafeAreaView, ImageBackground } from 'react-native';
 import { firebase } from '../config'
+import { BackHandler } from "react-native";
 
 const MenClothing = ({ route, navigation }) => {
 
@@ -47,6 +48,18 @@ const MenClothing = ({ route, navigation }) => {
                 setData(data);
             });
     };
+
+    function handleBackButtonClick() {
+        navigation.goBack();
+        return true;
+      }
+    
+      useEffect(() => {
+        BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
+        return () => {
+          BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
+        };
+      }, []);
 
     return (
         <View style={styles.container}>

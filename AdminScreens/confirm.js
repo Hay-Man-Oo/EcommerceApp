@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { firebase } from "../config";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { BackHandler } from "react-native";
 
 const Confirm = ({ route, navigation }) => {
 
@@ -50,6 +51,18 @@ const Confirm = ({ route, navigation }) => {
         alert(error.message);
       });
   }
+
+  function handleBackButtonClick() {
+    navigation.goBack();
+    return true;
+  }
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
+    };
+  }, []);
 
   return (
     <View style={styles.container}>

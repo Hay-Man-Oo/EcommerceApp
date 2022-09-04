@@ -30,13 +30,6 @@ const AdminScreen = ({ route, navigation }) => {
   const [imgURL, setImageURL] = useState("");
   const [category_name, setCategory_name] = useState('');
 
-  //const [productName, setProductName] = useState(route.params.item.name);
-  //const [desc, setDesc] = useState(route.params.item.desc);
-  //const [price, setPrice] = useState(route.params.item.price);
-  //const [category_id, setCategory_id] = useState(route.params.item.category_id);
-  //const [category_name, setCategory_name] = useState(route.params.item.category_name);
-  //const [callImage, setCallImage] = useState(route.params.item.imgURL);
-
   useEffect(() => {
     read();
   }, []);
@@ -103,11 +96,37 @@ const AdminScreen = ({ route, navigation }) => {
       ]
     );
   };
+
+  //useEffect(() => {
+  //  BackHandler.addEventListener("hardwareBackPress",()=>{
+  //    BackHandler.exitApp();
+  //  });
+  //}, []);
+
   useEffect(() => {
-    BackHandler.addEventListener("hardwareBackPress",()=>{
+    BackHandler.addEventListener("hardwareBackPress", () => {
       BackHandler.exitApp();
     });
   }, []);
+  const backAction = () => {
+    Alert.alert("Hold on!", "Are you sure you want to exit?", [
+      {
+        text: "Cancel",
+        onPress: () => null,
+        style: "cancel"
+      },
+      { text: "YES", onPress: () => BackHandler.exitApp() }
+    ]);
+    return true;
+  };
+  
+  useEffect(() => {
+    BackHandler.addEventListener("hardwareBackPress", backAction);
+  
+    return () =>
+      BackHandler.removeEventListener("hardwareBackPress", backAction);
+  }, []);
+
   return (
     <View>
       <View style={styles.container}>

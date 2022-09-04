@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { firebase } from "../config";
+import { BackHandler } from "react-native";
 
 const UserOrder = ({ route, navigation }) => {
 
@@ -86,6 +87,17 @@ const UserOrder = ({ route, navigation }) => {
 
   }
 
+  function handleBackButtonClick() {
+    navigation.goBack();
+    return true;
+  }
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
+    };
+  }, []);
 
   return (
     <View style={styles.container}>

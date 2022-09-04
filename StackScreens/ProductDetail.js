@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { firebase } from "../config";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { BackHandler } from "react-native";
 
 const ProductDetail = ({ route, navigation }) => {
   const dataRef = firebase.firestore().collection("products");
@@ -78,7 +79,19 @@ const decrease = (item) => {
   } else {
     setCount(count - 1);
   }
-}
+  }
+  
+  function handleBackButtonClick() {
+    navigation.goBack();
+    return true;
+  }
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
+    };
+  }, []);
   
   return (
     <View style={styles.container}>

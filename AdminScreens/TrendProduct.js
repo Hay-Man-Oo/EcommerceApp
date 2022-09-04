@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { firebase } from "../config";
+import { BackHandler } from "react-native";
 
 const TrendProduct = ({ route, navigation }) => {
 
@@ -47,6 +48,19 @@ const TrendProduct = ({ route, navigation }) => {
       alert("error");
     }); 
   };
+
+  function handleBackButtonClick() {
+    navigation.goBack();
+    return true;
+  }
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
+    };
+  }, []);
+
   return (
     <View style={styles.container}>
       <Image style={styles.iimage} source={{ uri: imgURL }} />

@@ -14,8 +14,7 @@ import { firebase } from "../config";
 import * as ImagePicker from "expo-image-picker";
 import SelectDropdown from 'react-native-select-dropdown'
 import { CommonActions } from '@react-navigation/native'
-import { call } from "react-native-reanimated";
-//import { CALLBACK_TYPE } from "react-native-gesture-handler/lib/typescript/handlers/gestures/gesture";
+import { BackHandler } from "react-native";
 
 const UpdateProduct = ({ route, navigation }) => {
 
@@ -184,6 +183,18 @@ const UpdateProduct = ({ route, navigation }) => {
        }
     }
   };
+
+  function handleBackButtonClick() {
+    navigation.goBack();
+    return true;
+  }
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
+    };
+  }, []);
 
   return (
     <View style={styles.container}>

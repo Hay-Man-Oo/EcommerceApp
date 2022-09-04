@@ -12,8 +12,7 @@ import {
 import {  MaterialCommunityIcons } from "@expo/vector-icons";
 import { useState, useEffect } from "react";
 import { firebase } from "../config";
-import { Ionicons } from "@expo/vector-icons";
-import * as Animatable from 'react-native-animatable';
+import { BackHandler } from "react-native";
 
 export default function OrderDetail({ navigation }) {
   //Getting user id
@@ -97,6 +96,18 @@ export default function OrderDetail({ navigation }) {
   };
   useEffect(() => {
     // read();
+  }, []);
+
+  function handleBackButtonClick() {
+    navigation.goBack();
+    return true;
+  }
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
+    };
   }, []);
 
 

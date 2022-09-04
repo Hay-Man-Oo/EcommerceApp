@@ -5,6 +5,8 @@ import { useIsFocused } from '@react-navigation/native';
 import { CommonActions } from '@react-navigation/native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { BackHandler } from 'react-native';
+
 const EditProfile = ({ route, navigation }) => {
 
     const [username, setUsername] = useState(route.params.user?.username)
@@ -71,6 +73,17 @@ const EditProfile = ({ route, navigation }) => {
         )
     }
 
+    function handleBackButtonClick() {
+        navigation.goBack();
+        return true;
+      }
+    
+      useEffect(() => {
+        BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
+        return () => {
+          BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
+        };
+      }, []);
 
     return (
         <View style={styles.container}>

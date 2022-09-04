@@ -6,12 +6,11 @@ import {
   FlatList,
   Image,
   TouchableOpacity,
-  ScrollView,
-  ImageBackground,
 } from "react-native";
 import { firebase } from "../config";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { SearchBar } from "react-native-elements";
+import { BackHandler } from "react-native";
 
 const All = ({ navigation }) => {
   
@@ -22,6 +21,18 @@ const All = ({ navigation }) => {
 
   useEffect(() => {
     read();
+  }, []);
+
+  function handleBackButtonClick() {
+    navigation.goBack();
+    return true;
+  }
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
+    };
   }, []);
 
   // Search item

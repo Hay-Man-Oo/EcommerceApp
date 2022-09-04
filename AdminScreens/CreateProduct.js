@@ -4,7 +4,7 @@ import { firebase } from '../config';
 import { CommonActions } from '@react-navigation/native'
 import * as ImagePicker from "expo-image-picker";
 import SelectDropdown from 'react-native-select-dropdown';
-import * as Animatable from 'react-native-animatable';
+import { BackHandler } from 'react-native';
 
 const CreateProduct = ({ navigation }) => {
 
@@ -140,6 +140,17 @@ const CreateProduct = ({ navigation }) => {
     }
   };
 
+  function handleBackButtonClick() {
+    navigation.goBack();
+    return true;
+  }
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
+    };
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -229,13 +240,6 @@ const styles = StyleSheet.create({
     marginBottom: 30,
     marginTop: 20
   },
-
-  //header: {
-  //  fontSize: 30,
-  //  fontWeight: 'bold',
-  //  marginBottom: 10,
-  //  color: 'white'
-  //},
 
   input: {
     marginLeft: 50,

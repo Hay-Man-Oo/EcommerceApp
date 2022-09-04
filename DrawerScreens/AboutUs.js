@@ -4,6 +4,8 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useState, useEffect } from "react";
 import { firebase } from '../config';
 import * as Animatable from 'react-native-animatable';
+import { BackHandler } from "react-native";
+
 export default function AboutUs({ navigation }) {
     const firestore = firebase.firestore;
     const auth = firebase.auth;
@@ -52,6 +54,18 @@ export default function AboutUs({ navigation }) {
 
         Linking.openURL(phoneNumber);
     };
+
+    function handleBackButtonClick() {
+        navigation.goBack();
+        return true;
+      }
+    
+      useEffect(() => {
+        BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
+        return () => {
+          BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
+        };
+      }, []);
     return (
         <View style={styles.container}>
            

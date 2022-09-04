@@ -6,6 +6,7 @@ import {
   Image,
   SafeAreaView,
   TouchableOpacity,
+  Alert,
   Button,
   FlatList,
   Dimensions,
@@ -49,6 +50,7 @@ function BackDrop({ scrollX }) {
   const [search, setSearch] = useState("");
   const [filterProduct, setFilterProduct] = useState([]);
   const isFocused = useIsFocused();
+
   useEffect(() => {
     firebase
       .firestore()
@@ -60,11 +62,49 @@ function BackDrop({ scrollX }) {
       });
   }, [isFocused]);
 
-  useEffect(() => {
-    BackHandler.addEventListener("hardwareBackPress",()=>{
-      BackHandler.exitApp();
-    });
-  }, []);
+  //useEffect(() => {
+  //  BackHandler.addEventListener("hardwareBackPress",()=>{
+  //    BackHandler.exitApp();
+  //  });
+  //}, []);
+
+//  function handleBackButtonClick() {
+//    navigation.goBack();
+//    return true;
+//  }
+//
+//  useEffect(() => {
+//    BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
+//    return () => {
+//      BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
+//    };
+//  }, []);
+
+//useEffect(() => {
+//  BackHandler.addEventListener("hardwareBackPress", () => {
+//    BackHandler.exitApp();
+//  });
+//}, []);
+//const backAction = () => {
+//  Alert.alert("Hold on!", "Are you sure you want to exit?", [
+//    {
+//      text: "Cancel",
+//      onPress: () => null,
+//      style: "cancel"
+//    },
+//    { text: "YES", onPress: () => BackHandler.exitApp() }
+//  ]);
+//  return true;
+//};
+//
+//useEffect(() => {
+//  BackHandler.addEventListener("hardwareBackPress", backAction);
+//
+//  return () =>
+//    BackHandler.removeEventListener("hardwareBackPress", backAction);
+//}, []);
+
+  
   return (
     <View
       style={
@@ -130,6 +170,31 @@ function BackDrop({ scrollX }) {
 }
 
 export default function DrawerHome({ navigation }) {
+
+  useEffect(() => {
+    BackHandler.addEventListener("hardwareBackPress", () => {
+      BackHandler.exitApp();
+    });
+  }, []);
+  const backAction = () => {
+    Alert.alert("Hold on!", "Are you sure you want to exit?", [
+      {
+        text: "Cancel",
+        onPress: () => null,
+        style: "cancel"
+      },
+      { text: "YES", onPress: () => BackHandler.exitApp() }
+    ]);
+    return true;
+  };
+  
+  useEffect(() => {
+    BackHandler.addEventListener("hardwareBackPress", backAction);
+  
+    return () =>
+      BackHandler.removeEventListener("hardwareBackPress", backAction);
+  }, []);
+
   const scrollX = React.useRef(new Animated.Value(0)).current;
 
     const [data, setData] = useState([]);

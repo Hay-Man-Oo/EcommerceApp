@@ -14,8 +14,8 @@ import { FlatList, TextInput } from "react-native-gesture-handler";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Ionicons } from "@expo/vector-icons";
 import { CommonActions } from "@react-navigation/native";
-import { set } from "react-native-reanimated";
 import { useIsFocused } from '@react-navigation/native';
+import { BackHandler } from "react-native";
 
 
 const MyCart = ({ route, navigation }) => {
@@ -108,6 +108,17 @@ const MyCart = ({ route, navigation }) => {
         itemDelete();
     }, [])
 
+    function handleBackButtonClick() {
+        navigation.goBack();
+        return true;
+      }
+    
+      useEffect(() => {
+        BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
+        return () => {
+          BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
+        };
+      }, []);
 
 
     // Add pending Order to firebase database
