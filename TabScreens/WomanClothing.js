@@ -89,7 +89,7 @@ useEffect(() => {
                   <View style={{padding: 10,}}>
                       {/*<Text style={styles.expoText}>{item.category_name}</Text>*/}
                       <Text style={styles.text}>Name : {item.name}</Text>
-                      <Text style={[styles.text,styles.text2]}>About : {item.desc}</Text>
+                      <Text numberOfLines={2} style={[styles.text,styles.text2]}>About : {item.desc}</Text>
                       <Text style={styles.text}>Price : $ {item.price}</Text>
                   </View>
                 </View>

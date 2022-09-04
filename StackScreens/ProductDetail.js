@@ -112,7 +112,7 @@ const decrease = (item) => {
          onPress={increase} />
        </View>
      </View>
-     <Text style={styles.text}>Description : {desc.substr(0, 10)}...</Text>
+        <Text style={styles.text}>Description : {desc}</Text>
      <View style={{marginTop: 80}}>
        <TouchableOpacity
          style={styles.button}

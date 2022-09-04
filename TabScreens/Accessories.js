@@ -91,7 +91,10 @@ useEffect(() => {
                   <View style={{padding: 10,}}>
                    
                    <Text style={styles.text}>Name : {item.name}</Text>
-                   <Text style={[styles.text,styles.text2]}>About : {item.desc}</Text>
+                      <Text style={[styles.text, styles.text2]}
+                        numberOfLines={2}
+
+                        >About : {item.desc}</Text>
                    <Text style={styles.text}>Price : $ {item.price}</Text>
                </View>
                 </View>

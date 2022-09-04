@@ -370,4 +370,9 @@ const styles = StyleSheet.create({
         height: 80,
         borderRadius: 15,
     },
+    noItem: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#fff'
+    }
 });

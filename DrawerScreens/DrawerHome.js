@@ -259,11 +259,13 @@ export default function DrawerHome({ navigation }) {
                 {search.length ? (
                     <Text>
                         {filterProduct.map((item, index) => (
-                            <View style={{
+                          <View
+                          key={index} 
+                            style={{
                                 flex: 1,
-                                paddingBottom: 30
+                            paddingBottom: 30
                             }}>
-                                <View key={index} style={{ flexDirection: 'column', paddingHorizontal: 10, flex: 1 }}>
+                                <View style={{ flexDirection: 'column', paddingHorizontal: 10, flex: 1 }}>
                                     <TouchableOpacity
                                         onPress={() => navigation.navigate("ProductDetail", { item })}
                                     >

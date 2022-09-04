@@ -211,9 +211,11 @@ const AdminScreen = ({ route, navigation }) => {
                     <Text style={styles.text}>
                       Price: ${item.price}
                     </Text>
-                    <Text style={[styles.text, styles.decText]}>
+                    <Text style={[styles.text, styles.decText]}
+                    numberOfLines={2}
+                    >
                       {/*Description:*/}
-                      {item.desc.substr(0, 10)}...
+                      {item.desc}...
                     </Text>
 
                   </View>
